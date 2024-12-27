@@ -1,6 +1,5 @@
 from textnode import TextNode, TextType
-from htmlnode import HTMLNode
-from leafnode import LeafNode
+from htmlnode import HTMLNode, LeafNode
 
 def main():
   textNode = TextNode("TESTING TEXT", TextType.BOLD, "URL")
