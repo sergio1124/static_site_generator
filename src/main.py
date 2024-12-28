@@ -1,31 +1,20 @@
-from textnode import TextNode, TextType
-from htmlnode import HTMLNode
-from inline_markdown import split_nodes_link
+import os
+import shutil
+
+from copystatic import copy_files_recursive
+
+
+dir_path_static = "./static"
+dir_path_public = "./public"
+
 
 def main():
-  textNode = TextNode("TESTING TEXT", TextType.BOLD, "URL")
-  print(textNode)
-  attributes = {
-    "href": "https://www.google.com",
-    "target": "_blank",
-  }
-  htmlNode = HTMLNode("testTAG", "testValue", [], attributes)
-  print(htmlNode)
+  print("Deleting public directory...")
+  if os.path.exists(dir_path_public):
+    shutil.rmtree(dir_path_public)
 
-  node = TextNode(
-    "This is text with a link [to boot dev](https://www.boot.dev) and [to youtube](https://www.youtube.com/@bootdotdev)",
-    TextType.TEXT,
-  )
-  new_nodes = split_nodes_link([node])
-  print(new_nodes)
-  # [
-  #     TextNode("This is text with a link ", TextType.TEXT),
-  #     TextNode("to boot dev", TextType.LINK, "https://www.boot.dev"),
-  #     TextNode(" and ", TextType.TEXT),
-  #     TextNode(
-  #         "to youtube", TextType.LINK, "https://www.youtube.com/@bootdotdev"
-  #     ),
-  # ]
+  print("Copying static files to public directory...")
+  copy_files_recursive(dir_path_static, dir_path_public)
 
 if __name__ == "__main__":
 	main()
