@@ -89,3 +89,10 @@ def split_nodes_link(old_nodes):
     if original_text != "":
       new_nodes.append(TextNode(original_text, TextType.TEXT))
   return new_nodes
+
+def extract_title(markdown):
+  lines = markdown.split("\n")
+  for line in lines:
+    if line.startswith("# "):
+      return line.lstrip("# ").strip()
+  raise Exception("Invalid markdown, no h1 title")
